@@ -59,32 +59,26 @@ export default function SensorSearchModal({
     }, [open]);
 
 
-    const toggleSelect = (sensorId: string, isAdded: boolean) => {
-        if (isAdded) {
+    const toggleSelect = (sensor: Sensor) => {
+        const id = sensor.sensorId;
+
+        if (sensor.isSelected) {
+            // originally selected → toggle REMOVE intent
             setselectedRemoveIds((prev) => {
                 const next = new Set(prev);
-                next.has(sensorId) ? next.delete(sensorId) : next.add(sensorId);
+                next.has(id) ? next.delete(id) : next.add(id);
                 return next;
             });
+        } else {
+            // originally not selected → toggle ADD intent
             setselectedAddIds((prev) => {
                 const next = new Set(prev);
-                next.has(sensorId) ? next.add(sensorId) : next.delete(sensorId);
-                return next;
-            });
-        }
-        else {
-            setselectedRemoveIds((prev) => {
-                const next = new Set(prev);
-                next.has(sensorId) ? next.add(sensorId) : next.delete(sensorId);
-                return next;
-            });
-            setselectedAddIds((prev) => {
-                const next = new Set(prev);
-                next.has(sensorId) ? next.delete(sensorId) : next.add(sensorId);
+                next.has(id) ? next.delete(id) : next.add(id);
                 return next;
             });
         }
     };
+
 
 
     const handleSave = async () => {
@@ -171,7 +165,7 @@ export default function SensorSearchModal({
                                         <Button
                                             type={selected ? "default" : "primary"}
                                             danger={selected}
-                                            onClick={() => toggleSelect(sensor.sensorId, selected)}
+                                            onClick={() => toggleSelect(sensor)}
                                         >
                                             {selected ? "Remove" : "Add"}
                                         </Button>,
