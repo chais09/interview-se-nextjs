@@ -66,6 +66,7 @@ export async function searchSensors(
       OR sensor_id ILIKE ${"%" + query + "%"}
       OR ip_address ILIKE ${"%" + query + "%"}
     )
+    ORDER BY id
     LIMIT ${limit};
   `;
   return row as Sensor[];

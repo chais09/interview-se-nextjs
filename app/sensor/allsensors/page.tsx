@@ -1,6 +1,6 @@
 // Import Data API
 import { getAllSensors } from "@/app/repositories/sensor.repo";
-import SensorGrid from "@/components/sensors/_SensorGrid";
+import SensorGrid from "@/components/sensors/SensorGrid";
 import { Sensor } from "@/app/models/sensor.model";
 
 export default async function AllSensorPage() {
